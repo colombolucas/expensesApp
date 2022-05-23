@@ -1,5 +1,6 @@
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() => runApp(ExpensesApp());
 
@@ -13,6 +14,9 @@ class ExpensesApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  String? title;
+  String? value;
+
   final _transactions = [
     Transaction(
       id: 't1',
@@ -35,7 +39,6 @@ class MyHomePage extends StatelessWidget {
         title: Text("Despesas Pessoais"),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
@@ -59,7 +62,7 @@ class MyHomePage extends StatelessWidget {
                     )),
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      tr.value.toString(),
+                      'R\$ ${tr.value.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
@@ -76,17 +79,52 @@ class MyHomePage extends StatelessWidget {
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        tr.date.toString(),
+                        DateFormat('d MMM y').format(tr.date),
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ));
             }).toList(),
+          ),
+          Card(
+            elevation: 5,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  TextField(
+                    onChanged: (newValue) => title = newValue,
+                    decoration: InputDecoration(labelText: 'Título'),
+                  ),
+                  TextField(
+                    onChanged: (newValue) => value = newValue,
+                    decoration: InputDecoration(labelText: 'Valor (R\$)'),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      FlatButton(
+                        onPressed: () {
+                          print(title);
+                          print(value);
+                        },
+                        child: Text(
+                          'Nova Transação',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.purple),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
           )
         ],
       ),
