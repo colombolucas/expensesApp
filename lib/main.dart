@@ -12,11 +12,12 @@ class ExpensesApp extends StatelessWidget {
     final ThemeData tema = ThemeData();
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: MyHomePage(),
       theme: tema.copyWith(
         colorScheme: tema.colorScheme.copyWith(
           primary: Colors.purple,
-          secondary: Colors.amber,
+          secondary: Colors.purple,
         ),
         textTheme: tema.textTheme.copyWith(
           headline6: TextStyle(
@@ -44,19 +45,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _transactions = [
-    Transaction(
-      id: 't1',
-      title: 'Novo Tênis de Corrida',
-      value: 310.76,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Conta de Luz',
-      value: 211.30,
-      date: DateTime.now(),
-    ),
+  final List<Transaction> _transactions = [
+    // Transaction(
+    //   id: 't1',
+    //   title: 'Novo Tênis de Corrida',
+    //   value: 310.76,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'Conta de Luz',
+    //   value: 211.30,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   _addTransaction(String title, double value) {
@@ -87,10 +88,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Despesas Pessoais'),
+        title: Text(
+          'Despesas Pessoais',
+          style: TextStyle(color: Colors.white),
+        ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.add),
+            icon: Icon(Icons.add, color: Colors.white),
             onPressed: () => _openTransactionFormModal(context),
           ),
         ],
