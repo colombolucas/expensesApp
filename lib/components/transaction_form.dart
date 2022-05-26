@@ -52,7 +52,8 @@ class _TransactionFormState extends State<TransactionForm> {
                   child: Text(
                     'Nova Transação',
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.purple),
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary),
                   ),
                 ),
               ],
