@@ -35,6 +35,12 @@ class ExpensesApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
+          headline5: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
         appBarTheme: AppBarTheme(
           titleTextStyle: TextStyle(
@@ -59,19 +65,31 @@ class _MyHomePageState extends State<MyHomePage> {
       id: 't0',
       title: 'Conta antiga',
       value: 400.76,
-      date: DateTime.now().subtract(Duration(days: 33)),
+      date: DateTime.now(),
     ),
     Transaction(
       id: 't1',
       title: 'Novo Tênis de Corrida',
       value: 310.76,
-      date: DateTime.now().subtract(Duration(days: 3)),
+      date: DateTime.now(),
     ),
     Transaction(
       id: 't2',
       title: 'Cinema com a Gata',
       value: 60.0,
-      date: DateTime.now().subtract(Duration(days: 4)),
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't3',
+      title: 'Cartão de Crédito',
+      value: 100000.0,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't4',
+      title: 'Lanche',
+      value: 10.30,
+      date: DateTime.now(),
     ),
   ];
 
