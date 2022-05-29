@@ -13,12 +13,12 @@ class TransactionUser extends StatefulWidget {
 class _TransactionUserState extends State<TransactionUser> {
   final List<Transaction> _transactions = [];
 
-  _addTransaction(String title, double value) {
+  _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
       value: value,
-      date: DateTime.now(),
+      date: date,
     );
 
     setState(() {
@@ -31,7 +31,6 @@ class _TransactionUserState extends State<TransactionUser> {
     return Column(
       children: [
         TransactionForm(_addTransaction),
-        TransactionList(_transactions),
       ],
     );
   }
