@@ -1,10 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'transaction_list.dart';
 import 'package:intl/intl.dart';
 
 class TransactionForm extends StatefulWidget {
   final void Function(String, double, DateTime) onSubmit;
-
   TransactionForm(this.onSubmit);
 
   @override
@@ -18,11 +18,13 @@ class _TransactionFormState extends State<TransactionForm> {
 
   _submitForm() {
     final title = _titleController.text;
-    final value = double.tryParse(_valueController.text) ?? 0.0;
+    final value =
+        double.tryParse(_valueController.text.replaceAll(",", ".")) ?? 0.0;
 
     if (title.isEmpty || value <= 0 || value.isNaN || _selectedDate == null) {
       return;
     }
+
     widget.onSubmit(title, value, _selectedDate);
   }
 
@@ -57,6 +59,7 @@ class _TransactionFormState extends State<TransactionForm> {
           child: Column(
             children: [
               TextField(
+                autofocus: true,
                 controller: _titleController,
                 onSubmitted: (_) => _submitForm(),
                 decoration: InputDecoration(labelText: 'Título'),
