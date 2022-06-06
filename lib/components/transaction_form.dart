@@ -1,5 +1,10 @@
+import 'dart:html';
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/message_format.dart';
+import 'package:intl/number_symbols_data.dart';
 import 'transaction_list.dart';
 import 'package:intl/intl.dart';
 
@@ -21,8 +26,98 @@ class _TransactionFormState extends State<TransactionForm> {
     final value =
         double.tryParse(_valueController.text.replaceAll(",", ".")) ?? 0.0;
 
-    if (title.isEmpty || value <= 0 || value.isNaN || _selectedDate == null) {
-      return;
+    if (value <= 0 || value.isNaN || value >= 100000.0) {
+      //Navigator.of(context).pop();
+
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Preenchimento dos campos obrigatórios'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: const <Widget>[
+                  Text('Os seguintes campos precisam ser preenchidos:'),
+                  Text(
+                    "Valor (R\$)",
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  ),
+                  Text('Inserir algum valor, por exemplo: 22,50.'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text(
+                  'Continuar',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    if (title.isEmpty ||
+        title.length > 50 ||
+        title.length == 1 ||
+        title.contains("1") ||
+        title.contains("2") ||
+        title.contains("3") ||
+        title.contains("4") ||
+        title.contains("5") ||
+        title.contains("6") ||
+        title.contains("7") ||
+        title.contains("8") ||
+        title.contains("9") ||
+        title.contains("@") ||
+        title.contains("!") ||
+        title.contains("^") ||
+        title.contains("~") ||
+        title.contains("}") ||
+        title.contains(")") ||
+        _selectedDate == null) {
+      //Navigator.of(context).pop();
+
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Preenchimento dos campos obrigatórios'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: const <Widget>[
+                  Text('Os seguintes campos precisam ser preenchidos:'),
+                  Text(
+                    "Título",
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  ),
+                  Text('Inserir algum nome, por exemplo: Conta de Luz.'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text(
+                  'Continuar',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
 
     widget.onSubmit(title, value, _selectedDate);
@@ -44,6 +139,7 @@ class _TransactionFormState extends State<TransactionForm> {
     });
   }
 
+  bool throwError = false;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -87,10 +183,12 @@ class _TransactionFormState extends State<TransactionForm> {
                     FlatButton(
                       textColor: Theme.of(context).primaryColor,
                       onPressed: _showDatePicker,
-                      child: Text("Selecionar Data",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.primary)),
+                      child: Text(
+                        "Selecionar Data",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
                     )
                   ],
                 ),
