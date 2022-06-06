@@ -1,15 +1,15 @@
 import 'dart:html';
-
+import 'package:expenses/main.dart';
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'chart_bar.dart';
 
-class Chart extends StatelessWidget {
+class Chartabreviated extends StatelessWidget {
   final List<Transaction> recentTransaction;
 
-  Chart(this.recentTransaction);
+  Chartabreviated(this.recentTransaction);
 
   List<Map<String, Object>> get groupedTransactions {
     return List.generate(7, (index) {
@@ -30,13 +30,13 @@ class Chart extends StatelessWidget {
       return {
         'day': DateFormat.E()
             .format(weekDay)
-            .replaceAll("Mon", "Seg")
-            .replaceAll("Tue", "Ter")
-            .replaceAll("Wed", "Qua")
-            .replaceAll("Thu", "Qui")
-            .replaceAll("Fri", "Sex")
-            .replaceAll("Sat", "Sáb")
-            .replaceAll("Sun", "Dom"),
+            .replaceAll("Mon", "S")
+            .replaceAll("Tue", "T")
+            .replaceAll("Wed", "Q")
+            .replaceAll("Thu", "Q")
+            .replaceAll("Fri", "S")
+            .replaceAll("Sat", "S")
+            .replaceAll("Sun", "D"),
         'value': totalSum
       };
     }).reversed.toList();

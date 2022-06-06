@@ -1,6 +1,5 @@
-import 'dart:html';
-
 import 'package:expenses/components/chart.dart';
+import 'package:expenses/components/chart_abreviated.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import './components/transaction_form.dart';
@@ -65,12 +64,15 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [];
   bool _showChart = false;
+  bool _abreviated = false;
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((tr) {
-      return tr.date.isAfter(DateTime.now().subtract(
-        Duration(days: 7),
-      ));
+      return tr.date.isAfter(
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      );
     }).toList();
   }
 
@@ -124,6 +126,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     _showChart = !_showChart;
                   })),
         IconButton(
+          icon: Icon(Icons.calendar_view_week_outlined),
+          onPressed: () {
+            setState(() {
+              _abreviated = !_abreviated;
+            });
+          },
+        ),
+        IconButton(
           icon: Icon(Icons.add, color: Colors.white),
           onPressed: () => _openTransactionFormModal(context),
         ),
@@ -156,7 +166,9 @@ class _MyHomePageState extends State<MyHomePage> {
             if (_showChart || !isLandscape)
               Container(
                 height: availableHeight * (isLandscape ? 0.8 : 0.3),
-                child: Chart(_recentTransactions),
+                child: _abreviated
+                    ? Chart(_recentTransactions)
+                    : Chartabreviated(_recentTransactions),
               ),
             if (!_showChart || !isLandscape)
               Container(
